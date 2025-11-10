@@ -35,11 +35,10 @@ const createUser = async (req, res) => {
   //#swagger.tags=["Users"]
   try {
     const user = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      birthday: req.body.birthday,
+      userName: req.body.userName,
+      name: req.body.name,
+      ipAddress: req.body.ipAddress,
     };
 
     const db = mongodb.getDb(); // ✅ no .db()
@@ -61,11 +60,10 @@ const updateUser = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
     const user = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      birthday: req.body.birthday,
+      userName: req.body.userName,
+      name: req.body.name,
+      ipAddress: req.body.ipAddress,
     };
 
     const db = mongodb.getDb();
