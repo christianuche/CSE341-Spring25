@@ -5,7 +5,7 @@
     "description": "A simple REST API for managing users",
     "version": "1.0.0"
   },
-  "host": "cse341-spring25-iuoa.onrender.com/",
+  "host": "cse341-spring25-iuoa.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
