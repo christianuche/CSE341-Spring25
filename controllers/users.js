@@ -3,8 +3,9 @@ const ObjectId = require("mongodb").ObjectId;
 
 // Get all users
 const getAll = async (req, res) => {
+  //#swagger.tags=["Users"]
   try {
-    const db = mongodb.getDb(); // ✅ no .db() again
+    const db = mongodb.getDb();
     const result = await db.collection("users").find();
     const users = await result.toArray();
     res.setHeader("Content-Type", "application/json");
@@ -16,9 +17,10 @@ const getAll = async (req, res) => {
 
 // Get a single user by ID
 const getSingle = async (req, res) => {
+  //#swagger.tags=["Users"]
   try {
     const userId = new ObjectId(req.params.id);
-    const db = mongodb.getDb(); // ✅ no .db() again
+    const db = mongodb.getDb();
     const result = await db.collection("users").find({ _id: userId });
     const users = await result.toArray();
     res.setHeader("Content-Type", "application/json");
@@ -28,7 +30,79 @@ const getSingle = async (req, res) => {
   }
 };
 
+// Create a new user
+const createUser = async (req, res) => {
+  //#swagger.tags=["Users"]
+  try {
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday,
+    };
+
+    const db = mongodb.getDb(); // ✅ no .db()
+    const response = await db.collection("users").insertOne(user);
+
+    if (response.acknowledged) {
+      res.status(201).json({ message: "User created successfully", id: response.insertedId });
+    } else {
+      res.status(500).json({ message: "Failed to create user" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Update an existing user
+const updateUser = async (req, res) => {
+  //#swagger.tags=["Users"]
+  try {
+    const userId = new ObjectId(req.params.id);
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday,
+    };
+
+    const db = mongodb.getDb();
+    const response = await db.collection("users").replaceOne({ _id: userId }, user);
+
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(500).json({ message: "No user updated or user not found." });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Delete a user
+const deleteUser = async (req, res) => {
+  //#swagger.tags=["Users"]
+  try {
+    const userId = new ObjectId(req.params.id);
+    const db = mongodb.getDb();
+    const response = await db.collection("users").deleteOne({ _id: userId });
+
+    if (response.deletedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: "User not found." });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAll,
   getSingle,
+  createUser,
+  updateUser,
+  deleteUser,
 };

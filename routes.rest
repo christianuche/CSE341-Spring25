@@ -1,0 +1,4 @@
+//LOCALHOST
+### GEt all users
+Send Request
+GET http://localhost:3000/contacts

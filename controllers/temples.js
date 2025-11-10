@@ -26,4 +26,23 @@ const getSingleTemple = async (req, res) => {
   }
 };
 
-module.exports = { getAllTemples, getSingleTemple };
+// // Create a new temple
+// const creatTemple = async (req, res) => {
+//   // Implementation for creating a temple
+// };
+// // Update an existing temple
+// const updateTemple = async (req, res) => {
+//   // Implementation for updating a temple
+// };
+// // Delete a temple
+// const deleteTemple = async (req, res) => {
+//   // Implementation for deleting a temple
+// };
+
+module.exports = { 
+  getAllTemples, 
+  getSingleTemple,
+  // creatTemple,
+  // updateTemple,
+  // deleteTemple
+};

@@ -26,4 +26,25 @@ const getSingle = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getSingle };
+// // Create a new contact
+// const createContact = async (req, res) => {
+//   // Implementation for creating a contact
+// };
+
+// // Update an existing contact
+// const updateContact = async (req, res) => {
+//   // Implementation for updating a contact
+// };
+
+// // Delete a contact
+// const deleteContact = async (req, res) => {
+//   // Implementation for deleting a contact
+// };
+
+module.exports = { 
+  getAll, 
+  getSingle,
+  // createContact,
+  // updateContact,
+  // deleteContact 
+};
